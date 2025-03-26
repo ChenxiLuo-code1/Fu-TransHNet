@@ -18,7 +18,7 @@ GPU-accelerated training with NVIDIA GeForce RTX 4090 D
 
 Dataset: CVC-ClinicDB, CVC-ColonDB, CVC-EndoScene, ETIS-LaribPolypDB and Kvasir
 - Download the dataset and put the unzipped data into . /data.
-- In accordance with https://github.com/Rayicer/TransFuse, run process.py to process all the data,
+- In accordance with (https://github.com/chenxiluo/Fu-TransHNet), run process.py to process all the data,
 producing `data_{train, val, test}.npy` and `mask_{train, val, test}.npy`.
 
 2.Training:
