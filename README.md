@@ -2,6 +2,7 @@
 This paper presents a novel deep learning fusion method called Fu-TransHNet, which aims to improve the accuracy of colon polyp segmentation.
 
 # Configuration
+We adopt NVIDIA GTX3090 for GPU acceleration training
 
 Pytorch = 2.1.2+cu121
 
@@ -18,12 +19,13 @@ GPU-accelerated training with NVIDIA GeForce RTX 4090 D
 
 Dataset: CVC-ClinicDB, CVC-ColonDB, CVC-EndoScene, ETIS-LaribPolypDB and Kvasir
 - Download the dataset and put the unzipped data into . /data.
-- In accordance with (https://github.com/chenxiluo/Fu-TransHNet), run process.py to process all the data,
+- In accordance with (https://github.com/ChenxiLuo-code1/Fu-TransHNet), run process_train.py and process_test.py to process the train and test data,
 producing `data_{train, val, test}.npy` and `mask_{train, val, test}.npy`.
 
 2.Training:
 - run `train_isic.py`；Need to change the default save path or other hyperparameters.
-- Save the model parameter file `n9_Trans%d.pth`.
+- Save the model parameter file `*.pth`.
+- Model checkpoints have been given: “w3-Trans109.pth”
 
 3.Testing:
 - run `test_isic.py`；Need to change the default save path or other hyperparameters.
