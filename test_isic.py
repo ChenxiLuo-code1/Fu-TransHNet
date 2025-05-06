@@ -8,60 +8,6 @@ import imageio
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
-
-def mean_iou_np(y_true, y_pred, **kwargs):
-    """
-    compute mean iou for binary segmentation map via numpy
-    """
-    axes = (0, 1)
-    intersection = np.sum(np.abs(y_pred * y_true), axis=axes)
-    mask_sum = np.sum(np.abs(y_true), axis=axes) + np.sum(np.abs(y_pred), axis=axes)
-    union = mask_sum - intersection
-
-    smooth = .001
-    iou = (intersection + smooth) / (union + smooth)
-    return iou
-
-
-def mean_dice_np(y_true, y_pred, **kwargs):
-    """
-    compute mean dice for binary segmentation map via numpy
-    """
-    axes = (0, 1)  # W,H axes of each image
-    intersection = np.sum(np.abs(y_pred * y_true), axis=axes)
-    mask_sum = np.sum(np.abs(y_true), axis=axes) + np.sum(np.abs(y_pred), axis=axes)
-
-    smooth = .001
-    dice = 2 * (intersection + smooth) / (mask_sum + smooth)
-    return dice
-
-
-def mean_Pre_np(y_true, y_pred, **kwargs):
-    """
-    compute mean dice for binary segmentation map via numpy
-    """
-    axes = (0, 1)  # W,H axes of each image
-    intersection = np.sum(np.abs(y_pred * y_true), axis=axes)
-    B_mask_sum = np.sum(np.abs(y_pred), axis=axes)
-
-    smooth = .001
-    Pre = (intersection + smooth) / (B_mask_sum + smooth)
-    return Pre
-
-
-def mean_Sen_np(y_true, y_pred, **kwargs):
-    """
-       compute mean dice for binary segmentation map via numpy
-       """
-    axes = (0, 1)  # W,H axes of each image
-    intersection = np.sum(np.abs(y_pred * y_true), axis=axes)
-    A_mask_sum = np.sum(np.abs(y_true), axis=axes)
-
-    smooth = .001
-    Sen = (intersection + smooth) / (A_mask_sum + smooth)
-    return Sen
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -118,7 +64,7 @@ for _data_name in ['CVC-ClinicDB', 'CVC-ColonDB', 'CVC-T', 'ETIS-LaribPolypDB', 
 
         res =w1* res3 +w2* res2 +w3* res1
 
-        res = res.sigmoid().data.cpu().numpy().squeeze()  # np.squeeze（）函数可以删除数组形状中的单维度条目，即把shape中为1的维度去掉，但是对非单维的维度不起作用。
+        res = res.sigmoid().data.cpu().numpy().squeeze() 
         res = 1 * (res > 0.5)
         if pred_save_path and gt_save_path is not None:
             imageio.imwrite(pred_save_path + '/' + str(j) + '.png', res)
